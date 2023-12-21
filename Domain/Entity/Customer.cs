@@ -1,11 +1,12 @@
 ﻿using Domain.Contract.AggregateRoots;
 using Domain.Contract.DomainEvents;
+using Domain.Contract.Entity;
 using Domain.Events;
 using System.Security.Cryptography;
 
 namespace Domain.Entity
 {
-    public class Customer : IAggregateRoot<Guid>
+    public class Customer : ICustomer
     {
         #region Properties
         public string FirstName { get; private set; }

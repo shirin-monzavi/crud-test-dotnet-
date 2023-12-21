@@ -1,4 +1,5 @@
-﻿using Domain.Entity;
+﻿using CommonConstantTest;
+using Domain.Entity;
 
 namespace DomainTests
 {

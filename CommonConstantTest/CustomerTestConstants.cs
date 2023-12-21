@@ -1,4 +1,4 @@
-﻿namespace DomainTests
+﻿namespace CommonConstantTest
 {
     public static class CustomerTestConstants
     {
