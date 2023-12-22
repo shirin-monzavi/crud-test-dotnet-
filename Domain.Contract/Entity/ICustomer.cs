@@ -11,5 +11,13 @@ namespace Domain.Contract.Entity
         public string Email { get; }
         public string BankAccountNumber { get; }
         public bool IsDeleted { get; }
+        void Update(string firstName,
+            string lastName,
+            DateTime dateOfBirth,
+            string phoneNumber,
+            string email,
+            string bankAccountNumber);
+
+        void Delete();
     }
 }

@@ -20,5 +20,7 @@
         public const string SOME_BANKACCOUNTNUMBER = "0123456789";
         public const string ANOTHER_BANKACCOUNTNUMBER = "0123456780";
 
+
+        public static readonly Guid SOME_ID =new Guid(" DCD66DEB-F041-4A86-9477-05C3FF23D220");
     }
 }
