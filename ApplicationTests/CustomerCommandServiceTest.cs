@@ -84,7 +84,6 @@ namespace ApplicationTests
             //Assert
             await customerCommandRepositoryMock.Received(1).Find(Arg.Any<Guid>());
             await unitOfWorkMock.Received(1).SaveChanges();
-
         }
     }
 }
