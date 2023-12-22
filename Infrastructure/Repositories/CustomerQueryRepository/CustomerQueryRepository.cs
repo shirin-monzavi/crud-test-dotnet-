@@ -16,7 +16,7 @@ namespace Infrastructure.Repositories.CustomerQueryRepository
         {
             var entity = await dbContext.Customers
                  .AsNoTracking()
-                 .FirstOrDefaultAsync(x => x.Id == id);
+                 .FirstOrDefaultAsync(x => x.Id == id  && x.IsDeleted==false);
 
             return entity;
         }

@@ -1,5 +1,4 @@
 using Application;
-using ApplicationContract;
 using ApplicationContract.Commands;
 using CommonTest;
 using Domain.Contract.Entity;
@@ -43,6 +42,7 @@ namespace ApplicationTests
 
             //Assert
             await customerCommandRepositoryMock.Received(1).Add(Arg.Any<ICustomer>());
+            await unitOfWorkMock.Received(1).SaveChanges();
         }
 
         [Fact]
@@ -65,7 +65,8 @@ namespace ApplicationTests
 
             //Assert
             await customerCommandRepositoryMock.Received(1).Find(Arg.Any<Guid>());
-            unitOfWorkMock.Received(1);
+            await unitOfWorkMock.Received(1).SaveChanges();
+
         }
 
         [Fact]
@@ -82,10 +83,8 @@ namespace ApplicationTests
 
             //Assert
             await customerCommandRepositoryMock.Received(1).Find(Arg.Any<Guid>());
-            unitOfWorkMock.Received(1);
+            await unitOfWorkMock.Received(1).SaveChanges();
+
         }
-
-       
-
     }
 }

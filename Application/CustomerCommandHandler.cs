@@ -32,8 +32,8 @@ namespace Application
                 command.BankAccountNumber);
 
             var customerEntity = await commandRepository.Add(customer)
-                .ConfigureAwait(false); 
-            unitOfWork.SaveChanges();
+                .ConfigureAwait(false);
+            await unitOfWork.SaveChanges().ConfigureAwait(false);
 
             return customerEntity.Adapt<CustomerSM>();
         }
@@ -47,11 +47,11 @@ namespace Application
             customerEntity.Update(command.FirstName,
                 command.LastName,
                 command.DateOfBirth,
-                command.PhoneNumber, 
-                command.Email, 
+                command.PhoneNumber,
+                command.Email,
                 command.BankAccountNumber);
 
-            unitOfWork.SaveChanges();
+            await unitOfWork.SaveChanges().ConfigureAwait(false);
         }
 
         public async Task DeleteCommand(DeleteCustomerCommand command)
@@ -61,7 +61,7 @@ namespace Application
 
             customerEntity.Delete();
 
-            unitOfWork.SaveChanges();
+            await unitOfWork.SaveChanges().ConfigureAwait(false);
         }
     }
 }
