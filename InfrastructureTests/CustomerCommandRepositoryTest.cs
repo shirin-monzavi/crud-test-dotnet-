@@ -1,32 +1,27 @@
 ﻿using CommonTest;
-using Domain.Contract.Repositories.CustomerCommandRepository;
 using Infrastructure.DbContexts;
 using Infrastructure.Repositories.CustomerCommandRepository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InfrastructureTests
 {
-    public class CustomerCommandRepositoryTest
+    public class CustomerCommandRepositoryTest :IAsyncDisposable,IDisposable
     {
-        private readonly CustomerTestBuilder testBuilder;
         private readonly CustomerCommandRepository sut;
-
+        private readonly CustomerTestBuilder testBuilder;
+        private readonly CustomerDbContext dbContext;
         public CustomerCommandRepositoryTest()
         {
-            testBuilder = new CustomerTestBuilder();
-
             var optionsBuilder = new DbContextOptionsBuilder<CustomerDbContext>();
 
-            optionsBuilder.UseSqlServer("Server=.;Initial Catalog=CustomerDb;Integrated Security=true;Persist Security Info=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
+            optionsBuilder.UseSqlServer("Server=.;Initial Catalog=CustomerDb1;Integrated Security=true;Persist Security Info=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
 
-            var dbContext = new CustomerDbContext(optionsBuilder.Options);
+            dbContext = new CustomerDbContext(optionsBuilder.Options);
 
+            dbContext.Database.EnsureCreatedAsync().GetAwaiter().GetResult();
             sut = new CustomerCommandRepository(dbContext);
+
+            testBuilder = new CustomerTestBuilder();
         }
 
         [Fact]
@@ -42,6 +37,7 @@ namespace InfrastructureTests
             Assert.NotNull(actual);
         }
 
+
         [Fact]
         public async Task Find_Should_Find_Customer_And_Track_It()
         {
@@ -54,6 +50,29 @@ namespace InfrastructureTests
 
             //Assert
             Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public async Task Find_Should_ThrowException_When_Customer_Is_Null()
+        {
+            //Arrenge
+
+            //Act
+            var actual = async () => await sut.Find(CustomerTestConstants.OTHER_ID);
+
+            //Assert
+            await Assert.ThrowsAsync<Exception>(actual);
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            await dbContext.Database.EnsureDeletedAsync();
+            await dbContext.DisposeAsync();
+        }
+
+        public void Dispose()
+        {
+            DisposeAsync().GetAwaiter().GetResult();
         }
     }
 }

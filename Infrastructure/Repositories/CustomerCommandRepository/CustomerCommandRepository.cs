@@ -23,7 +23,10 @@ namespace Infrastructure.Repositories.CustomerCommandRepository
         public async Task<ICustomer> Find(Guid id)
         {
             var customer = await dbContext.Customers.FindAsync(id);
-
+            if(customer == null)
+            {
+                throw new Exception("Not Founded");
+            }
             return customer;
         }
     }

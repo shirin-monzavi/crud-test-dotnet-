@@ -20,13 +20,16 @@
         public const string OTHER_PHONENUMER = "989121951214";
 
         public const string SOME_EMAIL = "m.fowler@gmail.com";
-        public const string ANOTHER_EMAIL = "mr.fowler@gmail.com";
-        public const string OTHER_EMAIL = "mr.f@gmail.com";
+        public const string ANOTHER_EMAIL = "m.fowler1998@gmail.com";
+        public const string OTHER_EMAIL = "m.f1998@gmail.com";
+        public const string NEW_EMAIL = "martin.f1998@gmail.com";
 
         public const string SOME_BANKACCOUNTNUMBER = "0123456789";
         public const string ANOTHER_BANKACCOUNTNUMBER = "0123456780";
         public const string OTHER_BANKACCOUNTNUMBER = "0123456787";
 
         public static readonly Guid SOME_ID = new Guid("DCD66DEB-F041-4A86-9477-05C3FF23D220");
+
+        public static readonly Guid OTHER_ID = new Guid("3CDAF8AC-089D-4221-AB4C-6CA0FA97C6DF");
     }
 }

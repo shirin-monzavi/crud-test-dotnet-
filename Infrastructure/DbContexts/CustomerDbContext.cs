@@ -5,18 +5,12 @@ namespace Infrastructure.DbContexts
 {
     public class CustomerDbContext : DbContext
     {
-        public CustomerDbContext()
-        {
-
-        }
-
         public CustomerDbContext(DbContextOptions<CustomerDbContext> options) : base(options)
         {
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=.;Initial Catalog=CustomerDb;Integrated Security=true;Persist Security Info=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,7 +26,7 @@ namespace Infrastructure.DbContexts
                 b.Property(o => o.IsDeleted);
 
                 b.Property(o => o.Email);
-                b.HasIndex(e => e.Email).IsUnique();
+                b.HasIndex(e => e.Email).IsUnique(true);
 
                 b.Property(o => o.PhoneNumber).HasMaxLength(20).IsUnicode(false);
                 b.Property(o => o.DateOfBirth);
