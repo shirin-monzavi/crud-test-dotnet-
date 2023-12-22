@@ -22,7 +22,7 @@ namespace Crud.Presentation.Server.Controllers
             this.customerQueryHandler = customerQueryHandler;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<CustomerVM> Get(Guid id)
         {
             var result = await customerQueryHandler.GetCustomerById(id);

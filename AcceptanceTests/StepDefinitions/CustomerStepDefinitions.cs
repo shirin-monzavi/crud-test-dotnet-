@@ -49,13 +49,11 @@ namespace AcceptanceTests.StepDefinitions
         public void ThenTheCustomerShouldBeCreated()
         {
             var response = context.Get<CustomerTest>("addResponse");
-            var request = new RestRequest($"Customer/{response.Id}");
+            var request = new RestRequest($"api/Customer/{response.Id}");
 
-            var findCustomer = client.Get(request);
+            var findCustomer = client.Get<CustomerTest>(request);
 
             findCustomer.Should().NotBeNull();
         }
-
-
     }
 }
