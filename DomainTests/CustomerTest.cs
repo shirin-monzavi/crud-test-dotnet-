@@ -1,4 +1,4 @@
-using CommonConstantTest;
+using CommonTest;
 using Domain.Entity;
 using FluentAssertions;
 

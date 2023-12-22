@@ -1,7 +1,7 @@
 using Application;
 using ApplicationContract;
 using ApplicationContract.Commands;
-using CommonConstantTest;
+using CommonTest;
 using Domain.Contract.Entity;
 using Domain.Contract.Repositories;
 using Domain.Contract.Repositories.CustomerCommandRepository;

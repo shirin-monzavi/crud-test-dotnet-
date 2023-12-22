@@ -1,5 +1,5 @@
 ﻿using Application;
-using CommonConstantTest;
+using CommonTest;
 using Domain.Contract.Repositories.CustomerQueryRepository;
 using NSubstitute;
 

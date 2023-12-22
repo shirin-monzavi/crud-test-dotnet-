@@ -1,7 +1,6 @@
-﻿using CommonConstantTest;
-using Domain.Entity;
+﻿using Domain.Entity;
 
-namespace DomainTests
+namespace CommonTest
 {
     public class CustomerTestBuilder
     {
@@ -68,7 +67,7 @@ namespace DomainTests
 
         public Customer Build()
         {
-            this.sut = new Customer(
+            sut = new Customer(
                 firstName,
                 lastName,
                 dateOfBirth,
