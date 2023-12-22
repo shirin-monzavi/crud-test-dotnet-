@@ -21,5 +21,13 @@ namespace Application
 
             return customerEntity.Adapt<CustomerSM>();
         }
+
+        public async Task<IEnumerable<CustomerSM>> GetCustomers()
+        {
+            var customerEntity = await customerQueryRepository
+               .GetCustomers().ConfigureAwait(false);
+
+            return customerEntity.Adapt<IEnumerable<CustomerSM>>();
+        }
     }
 }

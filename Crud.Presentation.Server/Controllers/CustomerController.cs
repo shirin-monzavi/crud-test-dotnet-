@@ -26,8 +26,19 @@ namespace Crud.Presentation.Server.Controllers
         public async Task<CustomerVM> Get(Guid id)
         {
             var result = await customerQueryHandler.GetCustomerById(id);
+
             return result.Adapt<CustomerVM>();
         }
+
+
+        [HttpGet]
+        public async Task<IEnumerable<CustomerVM>> Get()
+        {
+            var result = await customerQueryHandler.GetCustomers();
+
+            return result.Adapt<IEnumerable<CustomerVM>>();
+        }
+
 
         [HttpPost]
         public async Task<CustomerVM> Post([FromBody] CustomerVM customer)

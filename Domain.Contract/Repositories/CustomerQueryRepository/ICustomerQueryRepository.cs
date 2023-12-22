@@ -5,5 +5,6 @@ namespace Domain.Contract.Repositories.CustomerQueryRepository
     public interface ICustomerQueryRepository
     {
         Task<ICustomer> GetCustomerById(Guid id);
+        Task<IEnumerable<ICustomer>> GetCustomers();
     }
 }

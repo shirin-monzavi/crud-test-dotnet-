@@ -1,10 +1,10 @@
-﻿using RestSharp;
-using System.Security.Policy;
+﻿using AcceptanceTests.Dto;
+using RestSharp;
 
 namespace AcceptanceTests.StepDefinitions
 {
     [Binding]
-    public class GetAllCustomersStepDefinitions:Steps
+    public class GetAllCustomersStepDefinitions : Steps
     {
         private readonly ScenarioContext context;
         private readonly RestClientOptions options;
@@ -42,13 +42,19 @@ namespace AcceptanceTests.StepDefinitions
         [When(@"I get all customers")]
         public void WhenIGetAllCustomers()
         {
-            throw new PendingStepException();
+            var request = new RestRequest($"api/Customer");
+
+            var response = client.Get<IEnumerable<CustomerTest>>(request);
+
+            context.Add("getAllCustomers", response);
         }
 
         [Then(@"customers should be returned")]
         public void ThenCustomersShouldBeReturned()
         {
-            throw new PendingStepException();
+            var response = context.Get<IEnumerable<CustomerTest>>("getAllCustomers");
+
+            response.Should().NotBeNullOrEmpty();
         }
     }
 }
