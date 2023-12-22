@@ -1,5 +1,5 @@
-﻿using RestSharp;
-using System.Security.Policy;
+﻿using AcceptanceTests.Dto;
+using RestSharp;
 
 namespace AcceptanceTests.StepDefinitions
 {
@@ -44,13 +44,23 @@ namespace AcceptanceTests.StepDefinitions
         [When(@"I Delete the Customer")]
         public void WhenIDeleteTheCustomer()
         {
-            throw new PendingStepException();
+            var addResponse = context.Get<CustomerTest>("addResponse");
+
+            var request = new RestRequest($"api/Customer/{addResponse.Id}");
+
+            client.Delete(request);
         }
 
         [Then(@"the customer should be Deleted")]
         public void ThenTheCustomerShouldBeDeleted()
         {
-            throw new PendingStepException();
+            var response = context.Get<CustomerTest>("addResponse");
+
+            var request = new RestRequest($"api/Customer/{response.Id}");
+
+            var findCustomer = client.Get<CustomerTest>(request);
+
+            findCustomer.Should().BeNull();
         }
     }
 }

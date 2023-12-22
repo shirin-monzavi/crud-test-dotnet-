@@ -61,7 +61,7 @@ namespace Crud.Presentation.Server.Controllers
 
             await customerCommandHanlder.DeleteCommand(command);
 
-            return Ok(command);
+            return Ok();
         }
 
     }
