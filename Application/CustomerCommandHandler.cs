@@ -31,7 +31,8 @@ namespace Application
                 command.Email,
                 command.BankAccountNumber);
 
-            var customerEntity = await commandRepository.Add(customer);
+            var customerEntity = await commandRepository.Add(customer)
+                .ConfigureAwait(false); 
             unitOfWork.SaveChanges();
 
             return customerEntity.Adapt<CustomerSM>();
@@ -40,7 +41,8 @@ namespace Application
         public async Task UpdateCommand(UpdateCustomerCommand command)
         {
 
-            var customerEntity = await commandRepository.Find(command.Id);
+            var customerEntity = await commandRepository.Find(command.Id)
+                .ConfigureAwait(false);
 
             customerEntity.Update(command.FirstName,
                 command.LastName,
@@ -54,7 +56,8 @@ namespace Application
 
         public async Task DeleteCommand(DeleteCustomerCommand command)
         {
-            var customerEntity = await commandRepository.Find(command.Id);
+            var customerEntity = await commandRepository.Find(command.Id)
+                .ConfigureAwait(false);
 
             customerEntity.Delete();
 

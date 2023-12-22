@@ -9,12 +9,12 @@ using NSubstitute;
 
 namespace ApplicationTests
 {
-    public class CustomerServiceTest
+    public class CustomerCommandServiceTest
     {
         private readonly CustomerCommandHandler sut;
         private readonly ICustomerCommandRepository customerCommandRepositoryMock;
         private readonly IUnitOfWork unitOfWorkMock;
-        public CustomerServiceTest()
+        public CustomerCommandServiceTest()
         {
             customerCommandRepositoryMock = Substitute
                 .For<ICustomerCommandRepository>();
@@ -86,5 +86,6 @@ namespace ApplicationTests
         }
 
        
+
     }
 }
