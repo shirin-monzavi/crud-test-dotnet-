@@ -4,6 +4,8 @@ using CommonTest;
 using Domain.Contract.Entity;
 using Domain.Contract.Repositories;
 using Domain.Contract.Repositories.CustomerCommandRepository;
+using Framework;
+using Framework.Events;
 using NSubstitute;
 
 namespace ApplicationTests
@@ -13,14 +15,21 @@ namespace ApplicationTests
         private readonly CustomerCommandHandler sut;
         private readonly ICustomerCommandRepository customerCommandRepositoryMock;
         private readonly IUnitOfWork unitOfWorkMock;
+        private readonly IDispatcher dispatcher;
         public CustomerCommandServiceTest()
         {
             customerCommandRepositoryMock = Substitute
                 .For<ICustomerCommandRepository>();
 
             unitOfWorkMock = Substitute.For<IUnitOfWork>();
+            dispatcher = Substitute.For<IDispatcher>();
 
-            sut = new CustomerCommandHandler(customerCommandRepositoryMock, unitOfWorkMock);
+
+            sut = new CustomerCommandHandler(
+                customerCommandRepositoryMock,
+                unitOfWorkMock,
+                dispatcher
+                );
         }
 
         [Fact]

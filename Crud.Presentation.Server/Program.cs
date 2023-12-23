@@ -1,12 +1,7 @@
-using Application;
-using ApplicationContract;
-using Domain.Contract.Repositories;
-using Domain.Contract.Repositories.CustomerCommandRepository;
-using Domain.Contract.Repositories.CustomerQueryRepository;
+using Castle.Windsor;
+using Castle.Windsor.Extensions.DependencyInjection;
+using Infrastructure;
 using Infrastructure.DbContexts;
-using Infrastructure.Repositories;
-using Infrastructure.Repositories.CustomerCommandRepository;
-using Infrastructure.Repositories.CustomerQueryRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,12 +15,13 @@ builder.Services.AddDbContextFactory<CustomerDbContext>((sp, ob) =>
     ob.UseSqlServer("Server=.;Initial Catalog=CustomerDb;Integrated Security=true;Persist Security Info=False;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;Connection Timeout=30;");
 }, ServiceLifetime.Scoped);
 
-builder.Services.AddScoped<ICustomerCommandHanlder, CustomerCommandHandler>();
-builder.Services.AddScoped<ICustomerQueryHandler, CustomerQueryHandler>();
+//Castle
+builder.Host.UseServiceProviderFactory(new WindsorServiceProviderFactory());
 
-builder.Services.AddScoped<ICustomerCommandRepository, CustomerCommandRepository>();
-builder.Services.AddScoped<ICustomerQueryRepository, CustomerQueryRepository>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Host.ConfigureContainer<WindsorContainer>(c =>
+{
+    c.WindsorDependencyHolder();
+});
 
 builder.Services.AddSwaggerGen();
 

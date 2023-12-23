@@ -1,8 +1,6 @@
-﻿using Domain.Contract.AggregateRoots;
-using Domain.Contract.DomainEvents;
-using Domain.Contract.Entity;
+﻿using Domain.Contract.Entity;
 using Domain.Events;
-using System.Security.Cryptography;
+using Framework.Events;
 
 namespace Domain.Entity
 {

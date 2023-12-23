@@ -1,8 +1,8 @@
-﻿using Domain.Contract.DomainEvents;
+﻿using Framework.Events;
 
 namespace Domain.Events
 {
-    public class CustomerBaseDomainEvents:IDomainEvent
+    public class CustomerBaseDomainEvents : IDomainEvent
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

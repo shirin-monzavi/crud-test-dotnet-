@@ -4,6 +4,8 @@ using ApplicationContract.ServiceModels;
 using Domain.Contract.Repositories;
 using Domain.Contract.Repositories.CustomerCommandRepository;
 using Domain.Entity;
+using Framework;
+using Framework.Events;
 using Mapster;
 
 namespace Application
@@ -12,13 +14,16 @@ namespace Application
     {
         private readonly ICustomerCommandRepository commandRepository;
         private readonly IUnitOfWork unitOfWork;
-
-        public CustomerCommandHandler(ICustomerCommandRepository commandRepository,
-            IUnitOfWork unitOfWork
+        private readonly IDispatcher dispatcher;
+        public CustomerCommandHandler(
+            ICustomerCommandRepository commandRepository,
+            IUnitOfWork unitOfWork,
+            IDispatcher dispatcher
             )
         {
             this.commandRepository = commandRepository;
             this.unitOfWork = unitOfWork;
+            this.dispatcher = dispatcher;
         }
 
         public async Task<CustomerSM> AddCommand(AddCustomerCommand command)
@@ -31,9 +36,16 @@ namespace Application
                 command.Email,
                 command.BankAccountNumber);
 
-            var customerEntity = await commandRepository.Add(customer)
+            var customerEntity = await commandRepository
+                .Add(customer)
                 .ConfigureAwait(false);
+
             await unitOfWork.SaveChanges().ConfigureAwait(false);
+
+            foreach (var item in customer.DomainEvents)
+            {
+                dispatcher.Dispatch(item);
+            }
 
             return customerEntity.Adapt<CustomerSM>();
         }

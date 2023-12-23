@@ -1,8 +1,7 @@
-﻿namespace Domain.Contract.DomainEvents
+﻿namespace Framework.Events
 {
     public interface IDomainEvent
     {
         bool IsDeleted { get; }
-
     }
 }

@@ -1,4 +1,4 @@
-﻿using Domain.Contract.DomainEvents;
+﻿using Framework.Events;
 
 namespace Domain.Contract.AggregateRoots
 {
