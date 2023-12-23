@@ -6,6 +6,8 @@ using Domain.Entity;
 using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PhoneNumbers;
 
 namespace Crud.Presentation.Server.Controllers
 {
@@ -43,6 +45,8 @@ namespace Crud.Presentation.Server.Controllers
         [HttpPost]
         public async Task<CustomerVM> Post([FromBody] CustomerVM customer)
         {
+            validPhoneNumber(customer);
+
             var command = customer.Adapt<AddCustomerCommand>();
 
             var result = await customerCommandHanlder.AddCommand(command);
@@ -50,9 +54,24 @@ namespace Crud.Presentation.Server.Controllers
             return result.Adapt<CustomerVM>();
         }
 
+        private void validPhoneNumber(CustomerVM customer)
+        {
+            var phoneUtil = PhoneNumberUtil.GetInstance();
+
+
+            var isValid = phoneUtil.IsValidNumber(phoneUtil.Parse(customer.PhoneNumber, "IR"));
+
+            if (!isValid)
+            {
+                throw new Exception("PhoneNumber is not valid");
+            }
+        }
+
         [HttpPut("{id}")]
         public async Task<CustomerVM> Put(Guid id, [FromBody] CustomerVM customer)
         {
+            validPhoneNumber(customer);
+
             var command = customer.Adapt<UpdateCustomerCommand>();
             command.Id = id;
 
